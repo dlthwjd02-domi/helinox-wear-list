@@ -1,0 +1,155 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>헬리녹스웨어 제품 리스트</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap">
+<style>
+:root{color-scheme:light}
+/* layout: 헬리녹스웨어 공식몰 톤(흰 바탕·#1f1f1f 글씨·하늘색 포인트)으로 사진 4장 한 줄, 아래에 운영 방식과 제품 인덱스 */
+:root{
+  --paper:#FFFFFF; --surface:#F7F7F7; --ink:#1F1F1F; --ink-2:#666666; --ink-3:#898989;
+  --rule:#CCCCCC; --rule-soft:#E0E0E0;
+  --accent:#0A8FC2; --accent-wash:#E3F5FC; --on-accent:#FFFFFF;
+  --chip-ring:rgba(31,31,31,.22);
+  --display:"Archivo","Noto Sans KR",system-ui,sans-serif;
+  --body:"Noto Sans KR",system-ui,-apple-system,sans-serif;
+  --mono:"Archivo","Noto Sans KR",system-ui,sans-serif;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --paper:#121212; --surface:#1C1C1C; --ink:#F2F2F2; --ink-2:#AAAAAA; --ink-3:#898989;
+    --rule:#333333; --rule-soft:#262626;
+    --accent:#0EB5F2; --accent-wash:#0F2530; --on-accent:#08141B;
+    --chip-ring:rgba(255,255,255,.28);
+    color-scheme:dark;
+  }
+}
+:root[data-theme="dark"]{
+  --paper:#121212; --surface:#1C1C1C; --ink:#F2F2F2; --ink-2:#AAAAAA; --ink-3:#898989;
+  --rule:#333333; --rule-soft:#262626;
+  --accent:#0EB5F2; --accent-wash:#0F2530; --on-accent:#08141B;
+  --chip-ring:rgba(255,255,255,.28);
+  color-scheme:dark;
+}
+*{box-sizing:border-box}
+body{background:var(--paper);color:var(--ink);font-family:var(--body);font-weight:400;line-height:1.6;-webkit-font-smoothing:antialiased;
+  padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:0 72px}
+.wrap{max-width:1180px;margin:0 auto}
+
+.mast{padding-block:52px 32px;border-bottom:1px solid var(--ink)}
+.eyebrow{font-family:var(--mono);font-size:12px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);margin:0 0 16px}
+h1{font-family:var(--display);font-weight:600;font-size:clamp(34px,6.4vw,58px);line-height:1.06;letter-spacing:-.02em;margin:0;text-wrap:balance;word-break:keep-all}
+.facts{display:flex;flex-wrap:wrap;gap:0 34px;margin:28px 0 0;padding-top:18px;border-top:1px solid var(--rule)}
+.fact{display:flex;flex-direction:column;gap:3px;padding-block:4px}
+.fact dt{font-family:var(--mono);font-size:10px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink-3)}
+.fact dd{margin:0;font-family:var(--mono);font-size:17px;font-weight:500;font-variant-numeric:tabular-nums}
+
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;padding-block:40px;border-bottom:1px solid var(--ink)}
+.plate{display:flex;flex-direction:column;gap:10px;min-width:0}
+.plate a{color:inherit;text-decoration:none;display:flex;flex-direction:column;gap:10px}
+.shot{position:relative;aspect-ratio:2/3;max-width:100%;overflow:hidden;background:var(--surface);border:1px solid var(--rule-soft)}
+.shot img{width:100%;height:100%;object-fit:cover;display:block}
+.role{position:absolute;top:0;left:0;padding:3px 8px;background:var(--paper);color:var(--ink);font-family:var(--mono);font-size:10.5px;font-weight:500;letter-spacing:.04em}
+.pname{font-size:15px;line-height:1.4;font-weight:500;margin:0;word-break:keep-all}
+.plate a:hover .pname{text-decoration:underline;text-underline-offset:3px}
+.plate a:focus-visible{outline:2px solid var(--accent);outline-offset:4px}
+.pmeta{display:flex;align-items:center;gap:7px;font-size:13px;color:var(--ink-2);margin:0}
+.chip{width:12px;height:12px;flex:0 0 auto;border-radius:50%;box-shadow:inset 0 0 0 1px var(--chip-ring)}
+.psize{font-family:var(--mono);font-size:12px;color:var(--ink-3);font-variant-numeric:tabular-nums;margin:0}
+
+.ops{padding-block:44px 0}
+h2{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:-.01em;margin:0 0 4px}
+.h2sub{margin:0 0 20px;font-size:13px;color:var(--ink-2);font-weight:300;word-break:keep-all}
+.foot{word-break:keep-all;text-wrap:pretty}
+.ops-list{list-style:none;margin:0;padding:0}
+.ops-list li{display:grid;grid-template-columns:150px 1fr;gap:18px;padding-block:14px;border-top:1px solid var(--rule-soft);word-break:keep-all}
+.ops-list li:first-child{border-top:1px solid var(--rule)}
+.ops-list b{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;font-weight:500;color:var(--accent);padding-top:4px}
+.ops-list span{font-size:13.5px;line-height:1.7;color:var(--ink-2);text-wrap:pretty}
+@media (min-width:900px){.ops-list span{white-space:nowrap}}
+
+.index{padding-block:46px 0}
+.tablewrap{overflow-x:auto}
+table{border-collapse:collapse;width:100%;min-width:620px;font-size:13px}
+th,td{text-align:left;padding:14px 14px 14px 0;border-bottom:1px solid var(--rule-soft);vertical-align:baseline}
+th{font-family:var(--mono);font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-3);border-bottom:1px solid var(--ink);white-space:nowrap}
+td.n,th.n{text-align:right;padding-right:0;font-family:var(--mono);font-variant-numeric:tabular-nums;white-space:nowrap}
+td a{color:inherit;text-decoration:none;font-weight:500}
+td a::after{content:"\2197";margin-left:6px;font-size:12px;color:var(--ink-3)}
+td a:hover,td a:hover::after{color:var(--accent)}
+tbody tr:hover td{background:var(--surface)}
+.cat{font-family:var(--mono);font-size:11px;color:var(--ink-3);white-space:nowrap}
+.colorcell{display:flex;align-items:center;gap:7px;white-space:nowrap}
+.foot{margin-top:34px;padding-top:16px;border-top:1px solid var(--rule);font-size:11.5px;color:var(--ink-3);line-height:1.7}
+
+@media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:640px){.ops-list li{grid-template-columns:1fr;gap:5px}.mast{padding-block:36px 26px}}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+</head>
+<body>
+<div class="wrap">
+  <header class="mast">
+    <p class="eyebrow">HELINOX WEAR × 도미</p>
+    <h1>헬리녹스웨어 제품 리스트</h1>
+    <dl class="facts">
+      <div class="fact"><dt>작성일</dt><dd>2026.10.27</dd></div>
+      <div class="fact"><dt>제품</dt><dd>4점</dd></div>
+      <div class="fact"><dt>시즌</dt><dd>26 F/W</dd></div>
+    </dl>
+  </header>
+
+  <main class="grid" id="grid"></main>
+
+  <section class="ops">
+    <h2>노출 운영 방식</h2>
+    <p class="h2sub">제품은 한 번 올리고 끝나지 않고, 계정에서 계속 돌려 씁니다.</p>
+    <ul class="ops-list">
+      <li><b>풀착 외 기성품 믹스</b><span>상의·하의 제품을 서로 조합하고 보유 아이템과도 섞어 데일리 코디로 재구성합니다.<br>같은 제품이 다른 착장으로 반복 등장해 노출 횟수가 늘어납니다.</span></li>
+      <li><b>스토리 상시 노출</b><span>캠핑·트레킹·여행·도심 이동 등 실제 활동 상황의 착용 컷을 스토리로 꾸준히 올립니다.<br>계절이 맞는 동안 계속 노출됩니다.</span></li>
+    </ul>
+  </section>
+
+  <section class="index">
+    <h2>제품 인덱스</h2>
+    <p class="h2sub">제품명을 누르면 헬리녹스웨어 상품 페이지로 이동합니다.</p>
+    <div class="tablewrap">
+      <table>
+        <thead><tr><th>카테고리</th><th>제품</th><th>컬러</th><th>사이즈</th><th class="n">가격</th></tr></thead>
+        <tbody id="idx"></tbody>
+      </table>
+    </div>
+    <p class="foot">제품명·가격은 2026년 10월 27일 헬리녹스웨어 공식몰 기준입니다. 가격은 정가이며 쿠폰·혜택가는 반영하지 않았습니다.</p>
+  </section>
+</div>
+
+<script>
+const P = [
+  {n:"ZERO 솔라 다운",cat:"아우터",color:"카키",hex:"#555B3C",size:"M",price:720000,img:"img/down.jpg",url:"https://www.helinoxwear.com/Product/OXJDW26071KHX"},
+  {n:"카모 플리스 하프 집업",cat:"상의",color:"다크 브라운",hex:"#4A4538",size:"M",price:240000,img:"img/fleece.jpg",url:"https://www.helinoxwear.com/Product/OXTBW26213BRD"},
+  {n:"이클립스 알파 윈드 카고팬츠",cat:"하의",color:"다크 레드",hex:"#8A3B36",size:"S",price:320000,img:"img/pants.jpg",url:"https://www.helinoxwear.com/Product/OXPNW26221RED"},
+  {n:"폴라텍 200 캠프캡",cat:"액세서리",color:"블랙",hex:"#1B1C1E",size:"M",price:85000,img:"img/cap.jpg",url:"https://www.helinoxwear.com/Product/OGREW26211BKX"}
+];
+const won = n => n.toLocaleString("ko-KR") + "원";
+document.getElementById("grid").innerHTML = P.map(p=>`<article class="plate"><a href="${p.url}" target="_blank" rel="noopener">
+  <div class="shot"><img src="${p.img}" alt="${p.n}" loading="lazy"><span class="role">${p.cat}</span></div>
+  <p class="pname">${p.n}</p>
+  <p class="pmeta"><span class="chip" style="background:${p.hex}"></span>${p.color}</p>
+  <p class="psize">${p.size} · ${won(p.price)}</p>
+</a></article>`).join("");
+document.getElementById("idx").innerHTML = P.map(p=>`<tr>
+  <td class="cat">${p.cat}</td>
+  <td><a href="${p.url}" target="_blank" rel="noopener">${p.n}</a></td>
+  <td><span class="colorcell"><span class="chip" style="background:${p.hex}"></span>${p.color}</span></td>
+  <td class="cat">${p.size}</td>
+  <td class="n">${won(p.price)}</td>
+</tr>`).join("");
+</script>
+
+</body>
+</html>

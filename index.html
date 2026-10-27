@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>헬리녹스웨어 제품 리스트</title>
+<title>헬리녹스웨어 코디 룩북</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wght@500;600;700&family=Noto+Sans+KR:wght@300;400;500;700&display=swap">
@@ -103,26 +103,38 @@ tbody tr:hover td{background:var(--surface)}
   tbody td:nth-child(2){grid-column:1 / -1;font-size:15px}
   tbody td:nth-child(3){grid-column:1}
   tbody td:nth-child(4){grid-column:2;grid-row:3;text-align:right}
-  tbody td:nth-child(5){grid-column:1 / -1;text-align:left;font-weight:500;margin-top:2px}
+  tbody td:nth-child(5){grid-column:1;text-align:left;font-weight:500;margin-top:2px}
+  tbody td:nth-child(6){grid-column:2;text-align:right;margin-top:2px}
   tbody tr:hover td{background:none}
 }
+
+.look{display:grid;grid-template-columns:200px 1fr;gap:32px;padding-block:40px;border-bottom:1px solid var(--rule)}
+.look:last-of-type{border-bottom:1px solid var(--ink)}
+.rail{display:flex;flex-direction:column;gap:10px}
+.num{font-family:var(--mono);font-weight:600;font-size:12px;letter-spacing:.12em;color:var(--accent)}
+.concept{font-family:var(--display);font-weight:600;font-size:23px;line-height:1.25;letter-spacing:-.01em;margin:0;word-break:keep-all;text-wrap:balance}
+.note{font-size:12.5px;line-height:1.65;color:var(--ink-2);margin:0;word-break:keep-all;text-wrap:pretty}
+.tally{margin-top:auto;padding-top:12px;border-top:1px solid var(--rule-soft);font-family:var(--mono);font-size:11.5px;color:var(--ink-3)}
+.plates{display:grid;grid-template-columns:repeat(var(--n,4),minmax(0,1fr));gap:16px}
+.use{font-family:var(--mono);font-size:11px;color:var(--ink-3)}
+@media (max-width:900px){.look{grid-template-columns:1fr;gap:18px;padding-block:32px}.tally{margin-top:0}.plates{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
 </style>
-
 </head>
 <body>
 <div class="wrap">
   <header class="mast">
     <p class="eyebrow">HELINOX WEAR × 도미</p>
-    <h1>헬리녹스웨어 제품 리스트</h1>
+    <h1>헬리녹스웨어 코디 룩북</h1>
     <dl class="facts">
       <div class="fact"><dt>작성일</dt><dd>2026.10.27</dd></div>
-      <div class="fact"><dt>제품</dt><dd>4점</dd></div>
+      <div class="fact"><dt>제품</dt><dd>9점</dd></div>
+      <div class="fact"><dt>룩</dt><dd>3셋</dd></div>
       <div class="fact"><dt>시즌</dt><dd>26 F/W</dd></div>
     </dl>
   </header>
 
-  <main class="grid" id="grid"></main>
+  <main id="looks"></main>
 
   <section class="ops">
     <h2>노출 운영 방식</h2>
@@ -138,7 +150,7 @@ tbody tr:hover td{background:var(--surface)}
     <p class="h2sub">제품명을 누르면 헬리녹스웨어 상품 페이지로 이동합니다.</p>
     <div class="tablewrap">
       <table>
-        <thead><tr><th>카테고리</th><th>제품</th><th>컬러</th><th>사이즈</th><th class="n">가격</th></tr></thead>
+        <thead><tr><th>카테고리</th><th>제품</th><th>컬러</th><th>사이즈</th><th class="n">가격</th><th class="n">노출</th></tr></thead>
         <tbody id="idx"></tbody>
       </table>
     </div>
@@ -155,26 +167,54 @@ tbody tr:hover td{background:var(--surface)}
 </div>
 
 <script>
-const P = [
-  {n:"이클립스 팩 다운 자켓",cat:"아우터",color:"베이지",hex:"#8A8574",size:"S",price:520000,img:"img/down.jpg",url:"https://www.helinoxwear.com/Product/OXJDW26201BEX"},
-  {n:"카모 플리스 하프 집업",cat:"상의",color:"다크 브라운",hex:"#4A4538",size:"M",price:240000,img:"img/fleece.jpg",url:"https://www.helinoxwear.com/Product/OXTBW26213BRD"},
-  {n:"이클립스 알파 윈드 카고팬츠",cat:"하의",color:"다크 레드",hex:"#8A3B36",size:"S",price:320000,img:"img/pants.jpg",url:"https://www.helinoxwear.com/Product/OXPNW26221RED"},
-  {n:"폴라텍 200 캠프캡",cat:"액세서리",color:"블랙",hex:"#1B1C1E",size:"M",price:85000,img:"img/cap.jpg",url:"https://www.helinoxwear.com/Product/OGREW26211BKX"}
+const B="https://www.helinoxwear.com/Product/";
+const P = {
+  down:{n:"이클립스 팩 다운 자켓",cat:"아우터",color:"라이트 그레이",hex:"#D4D2CB",size:"M",price:520000,img:"img/down.jpg",url:B+"OXJDW26201GYL"},
+  vest:{n:"이클립스 팩 다운 베스트",cat:"아우터",color:"블랙",hex:"#1E1F21",size:"M",price:380000,img:"img/vest.jpg",url:B+"OXVDW26201BKX"},
+  hood:{n:"폴라텍 알파 다이렉트 후디",cat:"상의",color:"블랙",hex:"#1E1F21",size:"S",price:240000,img:"img/hood.jpg",url:B+"OXTBW26221BKX"},
+  fleece:{n:"카모 플리스 하프 집업",cat:"상의",color:"다크 브라운",hex:"#4A4538",size:"M",price:240000,img:"img/fleece.jpg",url:B+"OXTBW26213BRD"},
+  cargo:{n:"커브드 카고 팬츠 우먼",cat:"하의",color:"브라운",hex:"#5B5636",size:"S",price:240000,img:"img/cargo.jpg",url:B+"OWPNW26212BRX"},
+  pants:{n:"윈터 커브드 팬츠",cat:"하의",color:"블랙",hex:"#1E1F21",size:"S",price:280000,img:"img/black.jpg",url:B+"OXPNW26211BKX"},
+  band:{n:"이클립스 헤드밴드",cat:"액세서리",color:"차콜 그레이",hex:"#5E5F61",size:"FREE",price:55000,img:"img/band.jpg",url:B+"OGRGW26071GYC"},
+  pack:{n:"이클립스 데이팩 26",cat:"액세서리",color:"블랙",hex:"#1E1F21",size:"FREE",price:220000,img:"img/pack.jpg",url:B+"OGBAX26211BKX"},
+  cap:{n:"폴라텍 200 캠프캡",cat:"액세서리",color:"블랙",hex:"#1E1F21",size:"M",price:85000,img:"img/cap.jpg",url:B+"OGREW26211BKX"}
+};
+const LOOKS = [
+  {no:"LOOK 01",name:"라이트 그레이 × 올리브 톤온톤",note:"라이트 그레이 다운에 블랙 후디와 브라운 카고를 받쳐 차분한 어스 톤으로 맞춥니다.",items:["down","hood","cargo","band"]},
+  {no:"LOOK 02",name:"블랙 레이어드, 카모 포인트",note:"블랙 다운 베스트 안에 카모 플리스를 겹치고 블랙 팬츠로 정리합니다.",items:["vest","fleece","pants","pack"]},
+  {no:"LOOK 03",name:"카모 믹스 캠핑",note:"카모 플리스에 브라운 카고, 데이팩과 캡을 더한 캠핑 착장입니다.",items:["fleece","cargo","pack","cap"]}
 ];
 const won = n => n.toLocaleString("ko-KR") + "원";
-document.getElementById("grid").innerHTML = P.map(p=>`<article class="plate"><a href="${p.url}" target="_blank" rel="noopener">
-  <div class="shot"><img src="${p.img}" alt="${p.n}" loading="lazy"><span class="role">${p.cat}</span></div>
-  <p class="pname">${p.n}</p>
-  <p class="pmeta"><span class="chip" style="background:${p.hex}"></span>${p.color}</p>
-  <p class="psize">${p.size} · ${won(p.price)}</p>
-</a></article>`).join("");
-document.getElementById("idx").innerHTML = P.map(p=>`<tr>
+function plate(k){
+  const p = P[k];
+  return `<article class="plate"><a href="${p.url}" target="_blank" rel="noopener">
+    <div class="shot"><img src="${p.img}" alt="${p.n}" loading="lazy"><span class="role">${p.cat}</span></div>
+    <p class="pname">${p.n}</p>
+    <p class="pmeta"><span class="chip" style="background:${p.hex}"></span>${p.color}</p>
+    <p class="psize">${p.size} · ${won(p.price)}</p>
+  </a></article>`;
+}
+document.getElementById("looks").innerHTML = LOOKS.map(L=>`<section class="look">
+  <div class="rail">
+    <p class="num">${L.no}</p>
+    <h2 class="concept">${L.name}</h2>
+    <p class="note">${L.note}</p>
+    <p class="tally">제품 ${L.items.length}점</p>
+  </div>
+  <div class="plates" style="--n:${L.items.length}">${L.items.map(plate).join("")}</div>
+</section>`).join("");
+const order=["down","vest","hood","fleece","cargo","pants","band","pack","cap"];
+const uses=k=>LOOKS.filter(L=>L.items.includes(k)).length;
+document.getElementById("idx").innerHTML = order.map(k=>{
+  const p=P[k];
+  return `<tr>
   <td class="cat">${p.cat}</td>
   <td><a href="${p.url}" target="_blank" rel="noopener">${p.n}</a></td>
   <td><span class="colorcell"><span class="chip" style="background:${p.hex}"></span>${p.color}</span></td>
   <td class="cat">${p.size}</td>
   <td class="n">${won(p.price)}</td>
-</tr>`).join("");
+  <td class="n">${uses(k)}회</td>
+</tr>`}).join("");
 </script>
 
 </body>

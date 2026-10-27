@@ -64,6 +64,11 @@ h1{font-family:var(--display);font-weight:600;font-size:clamp(34px,6.4vw,58px);l
 .ops{padding-block:44px 0}
 h2{font-family:var(--display);font-weight:600;font-size:20px;letter-spacing:-.01em;margin:0 0 4px}
 .h2sub{margin:0 0 20px;font-size:13px;color:var(--ink-2);font-weight:300;word-break:keep-all}
+.ship{margin-top:46px}
+.shipinfo{margin:14px 0 0;border-top:1px solid var(--ink)}
+.shipinfo div{display:grid;grid-template-columns:150px 1fr;gap:18px;padding-block:14px;border-bottom:1px solid var(--rule-soft)}
+.shipinfo dt{font-family:var(--mono);font-size:10.5px;letter-spacing:.12em;font-weight:500;color:var(--accent);padding-top:4px}
+.shipinfo dd{margin:0;font-size:14px;font-variant-numeric:tabular-nums;word-break:keep-all}
 .foot{word-break:keep-all;text-wrap:pretty}
 .ops-list{list-style:none;margin:0;padding:0}
 .ops-list li{display:grid;grid-template-columns:150px 1fr;gap:18px;padding-block:14px;border-top:1px solid var(--rule-soft);word-break:keep-all}
@@ -89,6 +94,7 @@ tbody tr:hover td{background:var(--surface)}
 
 @media (max-width:900px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media (max-width:640px){.ops-list li{grid-template-columns:1fr;gap:5px}.mast{padding-block:36px 26px}
+  .shipinfo div{grid-template-columns:1fr;gap:3px}
   table{min-width:0}
   thead{display:none}
   tbody tr{display:grid;grid-template-columns:1fr auto;gap:2px 12px;padding-block:14px;border-bottom:1px solid var(--rule-soft)}
@@ -136,6 +142,14 @@ tbody tr:hover td{background:var(--surface)}
         <tbody id="idx"></tbody>
       </table>
     </div>
+    <section class="ship">
+      <h2>배송지 정보</h2>
+      <dl class="shipinfo">
+        <div><dt>받는 사람</dt><dd>이소정</dd></div>
+        <div><dt>연락처</dt><dd>010-5503-1781</dd></div>
+        <div><dt>주소</dt><dd>명지대1가길 25, 5층</dd></div>
+      </dl>
+    </section>
     <p class="foot">제품명·가격은 2026년 10월 27일 헬리녹스웨어 공식몰 기준입니다. 가격은 정가이며 쿠폰·혜택가는 반영하지 않았습니다.</p>
   </section>
 </div>
